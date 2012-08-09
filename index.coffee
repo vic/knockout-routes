@@ -12,7 +12,7 @@ ko.routes = (mapping)->
   Routes = ->
   Routes.prototype = {}
 
-  current_url = ko.observable()
+  current = ko.observable()
   routes = new Routes
 
   for own name, route of mapping when typeof route == 'string'
@@ -37,7 +37,7 @@ ko.routes = (mapping)->
           u = u.replace(suid, '')
           matches = u.match(regexp)
           if matches
-            current_url url()
+            current state
             unless data
               data = {}
               data[names[i]] = value for value, i in matches.slice(1)
@@ -61,11 +61,12 @@ ko.routes = (mapping)->
 
       state.url = url
       state.param = params
-      state.active = ko.computed read: -> url() == current_url()
+      state.active = ko.computed read: -> url() == current().url()
 
       routes[name] = state
     )(name, route)
 
+  Routes.prototype.current = current
   Routes.prototype.ready = (_sigil)->
     sigil _sigil if _sigil
     state = History.getState()

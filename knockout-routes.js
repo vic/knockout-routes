@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty;
 
   ko.routes = function(mapping) {
-    var Routes, current_url, name, named, namedGroup, namedOrSplat, namedOrSplatGroup, route, routes, sigil, splat, splatGroup, suid;
+    var Routes, current, name, named, namedGroup, namedOrSplat, namedOrSplatGroup, route, routes, sigil, splat, splatGroup, suid;
     named = /:\w+/g;
     splat = /\*\w+/g;
     namedOrSplat = /[:\*]\w+/;
@@ -13,7 +13,7 @@
     sigil = ko.observable('');
     Routes = function() {};
     Routes.prototype = {};
-    current_url = ko.observable();
+    current = ko.observable();
     routes = new Routes;
     for (name in mapping) {
       if (!__hasProp.call(mapping, name)) continue;
@@ -70,7 +70,7 @@
               u = u.replace(suid, '');
               matches = u.match(regexp);
               if (matches) {
-                current_url(url());
+                current(state);
                 if (!data) {
                   data = {};
                   _ref1 = matches.slice(1);
@@ -142,13 +142,14 @@
           state.param = params;
           state.active = ko.computed({
             read: function() {
-              return url() === current_url();
+              return url() === current().url();
             }
           });
           return routes[name] = state;
         })(name, route);
       }
     }
+    Routes.prototype.current = current;
     Routes.prototype.ready = function(_sigil) {
       var n, r, state, url, _results;
       if (_sigil) {
