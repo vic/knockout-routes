@@ -1,0 +1,10 @@
+{
+ "name": "knockout-routes.js",
+ "description": "Routes for client-side apps powered by Knockout and History.js",
+ "version": "0.0.1",
+ "dependencies": {
+   "coffee-script": "*",
+   "uglify-js": "*",
+   "jake": "*"
+ }
+}
